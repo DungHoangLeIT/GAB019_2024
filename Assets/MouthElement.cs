@@ -6,7 +6,6 @@ using UnityEngine;
 public class MouthElement : MonoBehaviour
 {
     public int mouthID;
-    public int mouthEID;
     public MouthEatting mouthEatting;
     public Transform targetPos;
     public Transform[] items;
@@ -37,9 +36,12 @@ public class MouthElement : MonoBehaviour
 
     private IEnumerator MovePosNextDelay(Transform x)
     {
+        GameController.Instance.isPush = false;
         yield return new WaitForSeconds(1f);
         transform.DOMove(x.position, 0.5f);
         transform.SetParent(x);
+        yield return new WaitForSeconds(0.5f);
+        GameController.Instance.isPush = true;
 
     }
     private IEnumerator DelayMove()

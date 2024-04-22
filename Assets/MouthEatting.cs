@@ -10,6 +10,9 @@ public class MouthEatting : MonoBehaviour
     private void Update()
     {
         itemElement = GetComponentsInChildren<ItemElement>();
-        mouthEatingID = itemElement[0].itemID;
+        if(itemElement.Length != 0)
+        {
+            mouthEatingID = itemElement[0].itemID;
+        }
     }
 }

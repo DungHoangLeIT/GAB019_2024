@@ -8,30 +8,37 @@ public class FirstBoxElement : MonoBehaviour
     public List<BoxElement> boxElements;
     private ItemElement currentItemElement;
     private MouthElement[] mouthElements;
+
     private void OnMouseDown()
     {
-        currentItemElement = GetComponentInChildren<ItemElement>();
-        mouthElements = GameController.Instance.mouthElements;
-        for(int i = 0; i < mouthElements.Length; i++)
+        if (GameController.Instance.isPush == true)
         {
-            if(currentItemElement.itemID == mouthElements[i].mouthID)
+            currentItemElement = GetComponentInChildren<ItemElement>();
+            mouthElements = GameController.Instance.mouthElements;
+            for(int i = 0; i < GameController.Instance.numberOfMouth; i++)
             {
-                currentItemElement.transform.DOMove(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform.position, 0.5f);
-                currentItemElement.transform.SetParent(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform);
-                currentItemElement.transform.DOScale(0.5f, 0.5f);
-                foreach (BoxElement box in boxElements) box.MovingNext();
-                break;
-            }
-            if(mouthElements[i].mouthID == 0)
-            {
-                currentItemElement.transform.DOMove(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform.position, 0.5f);
-                currentItemElement.transform.SetParent(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform);
-                currentItemElement.transform.DOScale(0.5f, 0.5f);
-                foreach (BoxElement box in boxElements) box.MovingNext();
-                break;
+                if(currentItemElement.itemID == mouthElements[i].mouthID)
+                {
+                    currentItemElement.transform.DOMove(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform.position, 0.5f);
+                    currentItemElement.transform.SetParent(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform);
+                    currentItemElement.transform.DOScale(0.75f, 0.5f);
+                    foreach (BoxElement box in boxElements) box.MovingNext();
+                    if(GameController.Instance.levelData.levelInfors[GameController.Instance.levelIndex + 1].idFoodEated == currentItemElement.itemID)
+                    {
+                        GameController.Instance.levelData.levelInfors[GameController.Instance.levelIndex + 1].numberOfFoodEated--;
+                    }
+                    break;
+                }
+                if(mouthElements[i].mouthID == 0)
+                {
+                    currentItemElement.transform.DOMove(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform.position, 0.5f);
+                    currentItemElement.transform.SetParent(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform);
+                    currentItemElement.transform.DOScale(0.75f, 0.5f);
+                    foreach (BoxElement box in boxElements) box.MovingNext();
+                    break;
+                }
             }
         }
     }
-
 
 }

@@ -5,4 +5,8 @@ using UnityEngine;
 public class ItemElement : MonoBehaviour
 {
     public int itemID;
+
+    private void Update()
+    {
+    }
 }

@@ -11,8 +11,14 @@ public class GameController : MonoBehaviour
     public MouthElement mouthElementPref;
     public Transform mouthSpawn;
     public int numberOfMouth;
+    public int numberOfAllMouths;
     public Transform rowController;
     public Transform[] rows;
+    public Transform unlockMouthPos;
+    public bool isPush = true;
+
+    public LevelData levelData;
+    public int levelIndex;
 
     public void Awake()
     {
@@ -22,27 +28,31 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; private set; }
     private void Start()
     {
+        levelIndex = DataController.Instance.LoadValue();
+        mouthElements = FindObjectsOfType(typeof(MouthElement)) as MouthElement[];
+        numberOfAllMouths = mouthElements.Length;
+        isPush = true;
         UpToDateMouth();
     }
 
     private void Update()
     {
         UpToDateMouth();
-/*        foreach(Transform r in rows)
-        {
-            if(r.GetChildCount() == 1)
-            {
-                mouthElements[numberOfMouth].transform.DOMove(mouthSpawn.position, 0.5f);
-                transform.SetParent(mouthSpawn);
-                numberOfMouth++;
-            }
-        }*/
          
     }
     public void UpToDateMouth()
     {
+      
         mouthElements = FindObjectsOfType(typeof(MouthElement)) as MouthElement[];
         Array.Reverse(mouthElements);
+        int i = 0;
+        int j = 0;
+    }
+
+    public void UnlockMouth()
+    {
+        mouthElements[numberOfMouth].GetComponentInParent<RowElement>().transform.DOMove(unlockMouthPos.position, 0.25f);
+        numberOfMouth++;
     }
 
 

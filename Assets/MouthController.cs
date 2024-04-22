@@ -11,12 +11,10 @@ public class MouthController : MonoBehaviour
     }
     public static MouthController Instance { get; private set; }
     public List<MouthElement> mouthElements;
-    public int indexOut = -100;
 
     private void Update()
     {
         mouthElements.Clear();
-        indexOut = -100;
         foreach(MouthElement x in GameController.Instance.mouthElements)
         {
             mouthElements.Add(x);
