@@ -8,12 +8,10 @@ public class GameController : MonoBehaviour
 {
     public MouthElement[] mouthElements;
     public MouthEatting[] mouthEattings;
-    public MouthElement mouthElementPref;
+    public List<MouthElement> _mouthElements;
     public Transform mouthSpawn;
     public int numberOfMouth;
     public int numberOfAllMouths;
-    public Transform rowController;
-    public Transform[] rows;
     public Transform unlockMouthPos;
     public bool isPush = true;
 
@@ -29,7 +27,6 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         levelIndex = DataController.Instance.LoadValue();
-        mouthElements = FindObjectsOfType(typeof(MouthElement)) as MouthElement[];
         numberOfAllMouths = mouthElements.Length;
         isPush = true;
         UpToDateMouth();
@@ -43,10 +40,15 @@ public class GameController : MonoBehaviour
     public void UpToDateMouth()
     {
       
-        mouthElements = FindObjectsOfType(typeof(MouthElement)) as MouthElement[];
-        Array.Reverse(mouthElements);
-        int i = 0;
-        int j = 0;
+        //mouthElements = FindObjectsOfType(typeof(MouthElement)) as MouthElement[];
+        _mouthElements.Clear();
+        foreach (var x in mouthElements)
+        {
+            if (x.gameObject.active)
+            {
+                _mouthElements.Add(x);
+            }
+        }
     }
 
     public void UnlockMouth()

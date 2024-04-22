@@ -7,14 +7,14 @@ public class FirstBoxElement : MonoBehaviour
 {
     public List<BoxElement> boxElements;
     private ItemElement currentItemElement;
-    private MouthElement[] mouthElements;
+    private List<MouthElement> mouthElements;
 
     private void OnMouseDown()
     {
         if (GameController.Instance.isPush == true)
         {
             currentItemElement = GetComponentInChildren<ItemElement>();
-            mouthElements = GameController.Instance.mouthElements;
+            mouthElements = GameController.Instance._mouthElements;
             for(int i = 0; i < GameController.Instance.numberOfMouth; i++)
             {
                 if(currentItemElement.itemID == mouthElements[i].mouthID)

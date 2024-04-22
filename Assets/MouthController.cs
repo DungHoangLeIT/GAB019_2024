@@ -15,7 +15,7 @@ public class MouthController : MonoBehaviour
     private void Update()
     {
         mouthElements.Clear();
-        foreach(MouthElement x in GameController.Instance.mouthElements)
+        foreach(MouthElement x in GameController.Instance._mouthElements)
         {
             mouthElements.Add(x);
         }
