@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
     public bool isInCombo;
     public int comboCount;
     public int numberCountCombo = 0;
+    public List<BoxElement> boxElements;
+    public List<ItemElement> itemElements;
    
     
 
@@ -45,6 +47,8 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        itemElements.Clear();
+        foreach (var x in boxElements) itemElements.Add(x.GetComponentInChildren<ItemElement>());
         Debug.Log(comboCount);
         UpToDateMouth();
          

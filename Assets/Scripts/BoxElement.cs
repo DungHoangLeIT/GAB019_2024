@@ -10,9 +10,12 @@ public class BoxElement : MonoBehaviour
     public BoxController boxController;
     private ItemElement currentItemElement;
 
+
+
     public void MovingNext()
     {
-        for(int i = boxID; i >= 0; i--)
+        targetPos = null;
+        for (int i = boxID; i >= 0; i--)
         {
             if (boxController.boxElements[i].GetComponentInChildren<ItemElement>() == null)
             {
@@ -27,5 +30,10 @@ public class BoxElement : MonoBehaviour
             currentItemElement.transform.SetParent(targetPos);
         }
     }
+    private void Update()
+    {
+        MovingNext();
+    }
+
 
 }

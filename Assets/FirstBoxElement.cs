@@ -26,8 +26,19 @@ public class FirstBoxElement : MonoBehaviour
                     {
                         GameController.Instance.comboCount++;
                         GameController.Instance.numberCountCombo = 0;
+                        if(GameController.Instance.comboCount == 4)
+                        {
+                            for(int z = 0; z < 16; z++)
+                            {
+                                if(GameController.Instance.itemElements[z].itemID == currentItemElement.itemID)
+                                {
+                                    GameController.Instance.itemElements[z].transform.DOMove(mouthElements[i].transform.position, 1f);
+                                    GameController.Instance.itemElements[z].transform.SetParent(mouthElements[i].transform);
+                                }
+                            }
+                        }
                     }
-                    else if(GameController.Instance.numberCountCombo > 3)
+                    if(GameController.Instance.numberCountCombo > 3)
                     {
                         GameController.Instance.comboCount = 0;
                         GameController.Instance.numberCountCombo = 0;
