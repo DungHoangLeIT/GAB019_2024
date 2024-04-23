@@ -6,14 +6,23 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public int timeDelayMovement;
     public MouthElement[] mouthElements;
     public MouthEatting[] mouthEattings;
     public List<MouthElement> _mouthElements;
     public Transform mouthSpawn;
     public int numberOfMouth;
+    public int mouthUnlockID;
     public int numberOfAllMouths;
     public Transform unlockMouthPos;
     public bool isPush = true;
+
+    [Header("COmbo Function")]
+    public bool isInCombo;
+    public int comboCount;
+    public int numberCountCombo = 0;
+   
+    
 
     public LevelData levelData;
     public int levelIndex;
@@ -26,6 +35,8 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; private set; }
     private void Start()
     {
+        timeDelayMovement = 1;
+        mouthUnlockID = numberOfMouth;
         levelIndex = DataController.Instance.LoadValue();
         numberOfAllMouths = mouthElements.Length;
         isPush = true;
@@ -34,6 +45,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(comboCount);
         UpToDateMouth();
          
     }
@@ -53,9 +65,14 @@ public class GameController : MonoBehaviour
 
     public void UnlockMouth()
     {
-        mouthElements[numberOfMouth].GetComponentInParent<RowElement>().transform.DOMove(unlockMouthPos.position, 0.25f);
+        mouthUnlockID += numberOfAllMouths - _mouthElements.Count;
+        Debug.Log(mouthUnlockID);
+        mouthElements[mouthUnlockID].GetComponentInParent<RowElement>().transform.DOMove(unlockMouthPos.position, 0.2f);
         numberOfMouth++;
     }
 
+    public void ComboCount()
+    {
 
+    }
 }

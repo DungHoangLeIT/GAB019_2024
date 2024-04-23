@@ -11,6 +11,7 @@ public class MouthElement : MonoBehaviour
     public Transform[] items;
     public Vector3 nextPos;
     public Transform currentPos;
+    private int timeDelaytion;
     private void Start()
     {
         nextPos = new Vector3(transform.position.x, transform.position.y - 2.25f, transform.position.z);
@@ -18,13 +19,14 @@ public class MouthElement : MonoBehaviour
     }
     public void Update()
     {
+        timeDelaytion = GameController.Instance.timeDelayMovement;
         items = GetComponentsInChildren<Transform>();
         mouthEatting = GetComponentInChildren<MouthEatting>();
         mouthID = mouthEatting.mouthEatingID;
         currentPos = GetComponentInParent<RowElement>().transform;
         if(items.Length >= 8)
         {
-            for (int i = 2; i < items.Length; i++) Destroy(items[i].gameObject,1f);
+            for (int i = 2; i < items.Length; i++) Destroy(items[i].gameObject, timeDelaytion);
             StartCoroutine(DelayMove());
         }
     }
@@ -37,7 +39,7 @@ public class MouthElement : MonoBehaviour
     private IEnumerator MovePosNextDelay(Transform x)
     {
         GameController.Instance.isPush = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(timeDelaytion);
         transform.DOMove(x.position, 0.5f);
         transform.SetParent(x);
         yield return new WaitForSeconds(0.5f);
@@ -46,7 +48,7 @@ public class MouthElement : MonoBehaviour
     }
     private IEnumerator DelayMove()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(timeDelaytion);
         Debug.LogWarning(items.Length);
         transform.DOMove(targetPos.position, 0.5f);
         transform.SetParent(targetPos);

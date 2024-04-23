@@ -8,6 +8,6 @@ public class ClaimRewardMouth : MonoBehaviour
     private void OnMouseDown()
     {
         GameController.Instance.UnlockMouth();
-        sprite.SetActive(false);
+/*        sprite.SetActive(false);*/
     }
 }
