@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public int timeDelayMovement;
+    public float timeDelayMovement;
     public MouthElement[] mouthElements;
     public MouthEatting[] mouthEattings;
     public List<MouthElement> _mouthElements;
@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
     public int numberOfAllMouths;
     public Transform unlockMouthPos;
     public bool isPush = true;
+    public float timeDeleteElement;
+    public float timeDelayMoveItems;
 
     [Header("COmbo Function")]
     public bool isInCombo;
@@ -23,6 +25,7 @@ public class GameController : MonoBehaviour
     public int numberCountCombo = 0;
     public List<BoxElement> boxElements;
     public List<ItemElement> itemElements;
+    
    
     
 
@@ -37,7 +40,7 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; private set; }
     private void Start()
     {
-        timeDelayMovement = 1;
+        timeDelayMovement = 3f;
         mouthUnlockID = numberOfMouth;
         levelIndex = DataController.Instance.LoadValue();
         numberOfAllMouths = mouthElements.Length;
@@ -49,8 +52,19 @@ public class GameController : MonoBehaviour
     {
         itemElements.Clear();
         foreach (var x in boxElements) itemElements.Add(x.GetComponentInChildren<ItemElement>());
-        Debug.Log(comboCount);
         UpToDateMouth();
+        if(comboCount == 4)
+        {
+            timeDelayMoveItems = 2f;
+            timeDeleteElement = 1.3f;
+            timeDelayMovement = 3f;
+        }
+        else
+        {
+            timeDelayMoveItems = 0f;
+            timeDeleteElement = 0.8f;
+            timeDelayMovement = 2.2f;
+        }
          
     }
     public void UpToDateMouth()

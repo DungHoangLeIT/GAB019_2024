@@ -11,7 +11,7 @@ public class MouthElement : MonoBehaviour
     public Transform[] items;
     public Vector3 nextPos;
     public Transform currentPos;
-    private int timeDelaytion;
+    private float timeDelaytion;
     private void Start()
     {
         nextPos = new Vector3(transform.position.x, transform.position.y - 2.25f, transform.position.z);
@@ -26,7 +26,7 @@ public class MouthElement : MonoBehaviour
         currentPos = GetComponentInParent<RowElement>().transform;
         if(items.Length >= 8)
         {
-            for (int i = 2; i < items.Length; i++) Destroy(items[i].gameObject, timeDelaytion);
+            for (int i = 2; i < items.Length; i++) Destroy(items[i].gameObject, GameController.Instance.timeDeleteElement);
             StartCoroutine(DelayMove());
         }
     }
@@ -39,7 +39,8 @@ public class MouthElement : MonoBehaviour
     private IEnumerator MovePosNextDelay(Transform x)
     {
         GameController.Instance.isPush = false;
-        yield return new WaitForSeconds(timeDelaytion);
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(GameController.Instance.timeDelayMovement);
         transform.DOMove(x.position, 0.5f);
         transform.SetParent(x);
         yield return new WaitForSeconds(0.5f);
@@ -48,8 +49,9 @@ public class MouthElement : MonoBehaviour
     }
     private IEnumerator DelayMove()
     {
+        yield return new WaitForEndOfFrame();
+        timeDelaytion = GameController.Instance.timeDelayMovement;
         yield return new WaitForSeconds(timeDelaytion);
-        Debug.LogWarning(items.Length);
         transform.DOMove(targetPos.position, 0.5f);
         transform.SetParent(targetPos);
         yield return new WaitForSeconds(0.5f);
