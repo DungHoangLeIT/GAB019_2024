@@ -14444,7 +14444,7 @@ MonoBehaviour:
   mouthEattings: []
   _mouthElements: []
   mouthSpawn: {fileID: 0}
-  numberOfMouth: 3
+  numberOfMouth: 2
   mouthUnlockID: 0
   numberOfAllMouths: 0
   unlockMouthPos: {fileID: 1481989066}

@@ -20,9 +20,9 @@ public class FirstBoxElement : MonoBehaviour
                 if(currentItemElement.itemID == mouthElements[i].mouthID)
                 {
                     currentItemElement.SetAnimation("Eat", true);
-                    GameController.Instance.numberCountCombo++;
                     currentItemElement.transform.DOMove(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform.position, 0.8f);
                     currentItemElement.transform.SetParent(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform);
+                    GameController.Instance.numberCountCombo++;
                     if(mouthElements[i].mouthEatting.itemElement.Length == 2)
                     {
                         GameController.Instance.comboCount++;
@@ -33,7 +33,7 @@ public class FirstBoxElement : MonoBehaviour
                             StartCoroutine(DelayMovement(mouthElements[i].transform));
                         }
                     }
-                    if(GameController.Instance.numberCountCombo > 3)
+                    if(GameController.Instance.numberCountCombo >= 3)
                     {
                         GameController.Instance.comboCount = 0;
                         GameController.Instance.numberCountCombo = 0;

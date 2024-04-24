@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("COMBO" + comboCount);
         itemElements.Clear();
         foreach (var x in boxElements) itemElements.Add(x.GetComponentInChildren<ItemElement>());
         UpToDateMouth();
