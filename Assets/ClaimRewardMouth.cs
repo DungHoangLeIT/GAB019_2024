@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class ClaimRewardMouth : MonoBehaviour
 {
-    public GameObject sprite;
+    public GameObject adIcon;
+    public GameObject spriteRenderer;
+    private bool isPush = true;
+
     private void OnMouseDown()
     {
-        GameController.Instance.UnlockMouth();
-/*        sprite.SetActive(false);*/
+        if(isPush == true)
+        {
+            GameController.Instance.UnlockMouth();
+            adIcon.SetActive(false);
+            spriteRenderer.SetActive(false);
+            isPush = false;
+        }
     }
 }
