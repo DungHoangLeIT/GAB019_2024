@@ -6,7 +6,7 @@ using UnityEngine;
 public class FirstBoxElement : MonoBehaviour
 {
     public List<BoxElement> boxElements;
-    private ItemElement currentItemElement;
+    public ItemElement currentItemElement;
     private List<MouthElement> mouthElements;
 
     private void OnMouseDown()
@@ -28,7 +28,7 @@ public class FirstBoxElement : MonoBehaviour
                         mouthElements[i].mouthEatting.DiscountTarget();
                         GameController.Instance.comboCount++;
                         GameController.Instance.numberCountCombo = 0;
-                        if(GameController.Instance.comboCount == 4)
+                        if(GameController.Instance.comboCount == 5)
                         {
                             StartCoroutine(ResetCombo());
                             StartCoroutine(DelayMovement(mouthElements[i].transform));

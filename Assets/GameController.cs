@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     public int numberOfMouth;
     public int mouthUnlockID;
     public int numberOfAllMouths;
+    public int numberOfMouthForRestart;
     public Transform unlockMouthPos;
     public bool isPush = true;
     public float timeDeleteElement;
@@ -35,6 +36,8 @@ public class GameController : MonoBehaviour
     public FoodCount[] foodCounts;
     public int levelIndex;
     public bool isWin = false;
+    public bool isReminder = false;
+    public bool isLose = false;
     public Text[] text;
 
 
@@ -46,6 +49,7 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; private set; }
     private void Start()
     {
+        numberOfMouthForRestart = numberOfMouth;
         timeDelayMovement = 3f;
         mouthUnlockID = numberOfMouth;
         levelIndex = DataController.Instance.LoadValue();
@@ -56,7 +60,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        for(int i = 0; i < targetLevels.Length; i++)
+        for (int i = 0; i < targetLevels.Length; i++)
         {
             text[i].text = targetLevels[i].numberOfFoodEated.ToString();
         }
@@ -72,7 +76,17 @@ public class GameController : MonoBehaviour
             }
         }
         if (checkWinIndex == 0) isWin = true;
-        if(comboCount == 4)
+        if(isWin == true)
+        {
+            StartCoroutine(WinPopUpDelay());
+        }
+        /*        if(isReminder == true && numberOfMouthForRestart == numberOfMouth)
+                {
+                    StartCoroutine(ReminderDelay());
+                }*/
+        Debug.Log("isremind" + isReminder);
+
+        if (comboCount == 5)
         {
             timeDelayMoveItems = 2f;
             timeDeleteElement = 1.3f;
@@ -85,6 +99,18 @@ public class GameController : MonoBehaviour
             timeDelayMovement = 2.2f;
         }
          
+    }
+
+    IEnumerator WinPopUpDelay()
+    {
+        yield return new WaitForSeconds(2.5f);
+        UIControllerGameplay.Instance.WinState();
+    }
+
+    IEnumerator ReminderDelay()
+    {
+        yield return new WaitForSeconds(2.5f);
+        UIControllerGameplay.Instance.ReminderState();
     }
     public void UpToDateMouth()
     {
