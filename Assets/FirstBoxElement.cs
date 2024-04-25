@@ -8,6 +8,8 @@ public class FirstBoxElement : MonoBehaviour
     public List<BoxElement> boxElements;
     public ItemElement currentItemElement;
     private List<MouthElement> mouthElements;
+    public int firstBoxID;
+    private bool isNotCheck = false;
 
     private void OnMouseDown()
     {
@@ -25,6 +27,8 @@ public class FirstBoxElement : MonoBehaviour
                     GameController.Instance.numberCountCombo++;
                     if(mouthElements[i].mouthEatting.itemElement.Length == 2)
                     {
+                        isNotCheck = true;
+                        StartCoroutine(CheckAgain());
                         mouthElements[i].mouthEatting.DiscountTarget();
                         GameController.Instance.comboCount++;
                         GameController.Instance.numberCountCombo = 0;
@@ -60,6 +64,11 @@ public class FirstBoxElement : MonoBehaviour
             }
         }
     }
+    IEnumerator CheckAgain()
+    {
+        yield return new WaitForSeconds(4f);
+        isNotCheck = false;
+    }
     IEnumerator ResetCombo()
     {
         yield return new WaitForSeconds(4f);
@@ -79,5 +88,30 @@ public class FirstBoxElement : MonoBehaviour
             }
         }
     }
-
+    public bool isCheckedBlock = false;
+    private void Update()
+    {
+        if (isNotCheck) {
+            isCheckedBlock = false;
+        }
+        if (!isNotCheck)
+        {
+            currentItemElement = GetComponentInChildren<ItemElement>();
+            mouthElements = GameController.Instance._mouthElements;
+            for (int i = 0; i < GameController.Instance.numberOfMouth; i++)
+            {
+                if (currentItemElement.itemID == mouthElements[i].mouthID)
+                {
+                    isCheckedBlock = false;
+                    break;
+                }
+                if (mouthElements[i].mouthID == 0)
+                {
+                    isCheckedBlock = false;
+                    break;
+                }
+                isCheckedBlock = true;
+            }
+        }
+    }
 }

@@ -37,8 +37,11 @@ public class GameController : MonoBehaviour
     public int levelIndex;
     public bool isWin = false;
     public bool isReminder = false;
+    public bool isCouldLose = false;
     public bool isLose = false;
     public Text[] text;
+    public FirstBoxElement[] firstBoxElements;
+
 
 
     public void Awake()
@@ -60,13 +63,35 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        UpToDateMouth();
+        if(isReminder == false)
+        {
+            int l = 0;
+            foreach(var x in firstBoxElements)
+            {
+                if (x.isCheckedBlock == true)
+                {
+                    l++;
+                }
+            }
+            if(l == firstBoxElements.Length)
+            {
+                isReminder = true;
+                StartCoroutine(ReminderDelay());
+            }
+/*            isLose = true;*/
+        }
+        if(isReminder == true && isLose == false)
+        {
+            StartCoroutine(DelayCheckLose()); 
+        }
+/*        Debug.LogWarning(checkCountLose);*/
         for (int i = 0; i < targetLevels.Length; i++)
         {
             text[i].text = targetLevels[i].numberOfFoodEated.ToString();
         }
         itemElements.Clear();
         foreach (var x in boxElements) itemElements.Add(x.GetComponentInChildren<ItemElement>());
-        UpToDateMouth();
         int checkWinIndex = 0;
         for(int i = 0; i < targetLevels.Length; i++)
         {
@@ -75,16 +100,20 @@ public class GameController : MonoBehaviour
                 checkWinIndex++;
             }
         }
+        /*        if(checkedLoseOrRemind == 2)
+                {
+                    Debug.Log("lose");
+                    StartCoroutine(LoseDelay());
+                }*/
+/*        if (isReminder)
+        {
+            StartCoroutine(ReminderDelay());
+        }*/
         if (checkWinIndex == 0) isWin = true;
         if(isWin == true)
         {
             StartCoroutine(WinPopUpDelay());
         }
-        /*        if(isReminder == true && numberOfMouthForRestart == numberOfMouth)
-                {
-                    StartCoroutine(ReminderDelay());
-                }*/
-        Debug.Log("isremind" + isReminder);
 
         if (comboCount == 5)
         {
@@ -101,6 +130,24 @@ public class GameController : MonoBehaviour
          
     }
 
+    IEnumerator DelayCheckLose()
+    {
+        yield return new WaitForSeconds(20f);
+        int l = 0;
+        foreach (var x in firstBoxElements)
+        {
+            if (x.isCheckedBlock == true)
+            {
+                l++;
+            }
+        }
+        if (l == firstBoxElements.Length)
+        {
+            isReminder = true;
+            StartCoroutine(LoseDelay());
+        }
+    }
+
     IEnumerator WinPopUpDelay()
     {
         yield return new WaitForSeconds(2.5f);
@@ -109,9 +156,15 @@ public class GameController : MonoBehaviour
 
     IEnumerator ReminderDelay()
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(0.5f);
         UIControllerGameplay.Instance.ReminderState();
     }
+    IEnumerator LoseDelay()
+    {
+        yield return new WaitForSeconds(2.5f);
+        UIControllerGameplay.Instance.LoseState();
+    }
+
     public void UpToDateMouth()
     {
       

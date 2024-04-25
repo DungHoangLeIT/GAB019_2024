@@ -45,7 +45,7 @@ public class UIControllerGameplay : MonoBehaviour
 
     public void OnClickReminder()
     {
-        GameController.Instance.UnlockMouth();
+        ClaimRewardMouth.Instance.ClickAdReward();
         popUp.SetActive(false);
     }
 
