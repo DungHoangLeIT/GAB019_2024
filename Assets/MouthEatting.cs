@@ -36,6 +36,18 @@ public class MouthEatting : MonoBehaviour
         }
     }
 
+    public void DiscountTarget()
+    {
+        for (int i = 0; i < GameController.Instance.targetLevels.Length; i++)
+        {
+            if (GameController.Instance.targetLevels[i].idFoodEated == mouthEatingID)
+            {
+                GameController.Instance.targetLevels[i].numberOfFoodEated -= 3;
+                break;
+            }
+        }
+    }
+
     IEnumerator DelayCap(string animName, bool loop)
     {
         yield return new WaitForSeconds(0.8f);

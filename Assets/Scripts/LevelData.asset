@@ -14,32 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelInfors:
   - level: 1
-    idFoodEated: 2
-    numberOfFoodEated: 9
+    targetLevels: []
+    foodCounts: []
   - level: 2
-    idFoodEated: 1
-    numberOfFoodEated: 9
-  - level: 0
-    idFoodEated: 0
-    numberOfFoodEated: 0
-  - level: 0
-    idFoodEated: 0
-    numberOfFoodEated: 0
-  - level: 0
-    idFoodEated: 0
-    numberOfFoodEated: 0
-  - level: 0
-    idFoodEated: 0
-    numberOfFoodEated: 0
-  - level: 0
-    idFoodEated: 0
-    numberOfFoodEated: 0
-  - level: 0
-    idFoodEated: 0
-    numberOfFoodEated: 0
-  - level: 0
-    idFoodEated: 0
-    numberOfFoodEated: 0
-  - level: 0
-    idFoodEated: 0
-    numberOfFoodEated: 0
+    targetLevels: []
+    foodCounts: []
+  - level: 3
+    targetLevels: []
+    foodCounts: []

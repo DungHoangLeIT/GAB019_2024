@@ -25,6 +25,7 @@ public class FirstBoxElement : MonoBehaviour
                     GameController.Instance.numberCountCombo++;
                     if(mouthElements[i].mouthEatting.itemElement.Length == 2)
                     {
+                        mouthElements[i].mouthEatting.DiscountTarget();
                         GameController.Instance.comboCount++;
                         GameController.Instance.numberCountCombo = 0;
                         if(GameController.Instance.comboCount == 4)
@@ -40,10 +41,10 @@ public class FirstBoxElement : MonoBehaviour
                     }
                     currentItemElement.transform.DOScale(0.8f, 0.5f);
                     foreach (BoxElement box in boxElements) box.MovingNext();
-                    if(GameController.Instance.levelData.levelInfors[GameController.Instance.levelIndex + 1].idFoodEated == currentItemElement.itemID)
+                    /*if(GameController.Instance.levelData.levelInfors[GameController.Instance.levelIndex + 1].idFoodEated == currentItemElement.itemID)
                     {
                         GameController.Instance.levelData.levelInfors[GameController.Instance.levelIndex + 1].numberOfFoodEated--;
-                    }
+                    }*/
                     break;
                 }
                 if(mouthElements[i].mouthID == 0)

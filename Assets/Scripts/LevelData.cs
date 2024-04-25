@@ -11,8 +11,7 @@ public class LevelData : ScriptableObject
     [Serializable]
     public class LevelInfor{
         public int level;
-        public int idFoodEated;
-        public int numberOfFoodEated;
+        public List<TargetLevel> targetLevels;
+        public List<FoodCount> foodCounts;
     }
-    
 }

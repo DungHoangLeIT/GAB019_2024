@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -26,11 +27,16 @@ public class GameController : MonoBehaviour
     public List<BoxElement> boxElements;
     public List<ItemElement> itemElements;
     
-   
+    
     
 
     public LevelData levelData;
+    public TargetLevel[] targetLevels;
+    public FoodCount[] foodCounts;
     public int levelIndex;
+    public bool isWin = false;
+    public Text[] text;
+
 
     public void Awake()
     {
@@ -50,10 +56,22 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("COMBO" + comboCount);
+        for(int i = 0; i < targetLevels.Length; i++)
+        {
+            text[i].text = targetLevels[i].numberOfFoodEated.ToString();
+        }
         itemElements.Clear();
         foreach (var x in boxElements) itemElements.Add(x.GetComponentInChildren<ItemElement>());
         UpToDateMouth();
+        int checkWinIndex = 0;
+        for(int i = 0; i < targetLevels.Length; i++)
+        {
+            if(targetLevels[i].numberOfFoodEated != 0)
+            {
+                checkWinIndex++;
+            }
+        }
+        if (checkWinIndex == 0) isWin = true;
         if(comboCount == 4)
         {
             timeDelayMoveItems = 2f;
@@ -95,3 +113,17 @@ public class GameController : MonoBehaviour
 
     }
 }
+
+[Serializable]
+public class TargetLevel
+{
+    public int idFoodEated;
+    public int numberOfFoodEated;
+}
+[Serializable]
+public class FoodCount
+{
+    public int idFood;
+    public int numberOfFood;
+}
+
