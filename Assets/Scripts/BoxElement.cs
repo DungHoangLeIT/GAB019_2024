@@ -9,6 +9,11 @@ public class BoxElement : MonoBehaviour
     public int boxID;
     public BoxController boxController;
     private ItemElement currentItemElement;
+    public int foodElementSpawnID;
+    private void Start()
+    {
+        Instantiate(GameController.Instance.foodPrefabs[foodElementSpawnID - 1], transform.position,Quaternion.identity, transform);
+    }
 
 
     public void MovingNext()

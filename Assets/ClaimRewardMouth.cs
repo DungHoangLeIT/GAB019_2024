@@ -15,10 +15,10 @@ public class ClaimRewardMouth : MonoBehaviour
     public static ClaimRewardMouth Instance { get; private set; }
     private void OnMouseDown()
     {
-        if(isPush == true)
+        if(isPush == true && GameController.Instance.isPush)
         {
-            ClickAdReward();
             isPush = false;
+            ClickAdReward();
         }
     }
 

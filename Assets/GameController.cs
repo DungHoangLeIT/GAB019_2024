@@ -9,7 +9,8 @@ public class GameController : MonoBehaviour
 {
     public int levelID;
     public float timeDelayMovement;
-    public MouthElement[] mouthElements;
+    public RowElement[] rowElements;
+    public List<MouthElement> mouthElements;
     public MouthEatting[] mouthEattings;
     public List<MouthElement> _mouthElements;
     public Transform mouthSpawn;
@@ -18,9 +19,10 @@ public class GameController : MonoBehaviour
     public int numberOfAllMouths;
     public int numberOfMouthForRestart;
     public Transform unlockMouthPos;
-    public bool isPush = true;
+    public bool isPush = false;
     public float timeDeleteElement;
     public float timeDelayMoveItems;
+    public List<GameObject> foodPrefabs;
 
     [Header("COmbo Function")]
     public bool isInCombo;
@@ -41,6 +43,7 @@ public class GameController : MonoBehaviour
     public bool isCouldLose = false;
     public bool isLose = false;
     public Text[] text;
+    public Text numberOfMouthTxt;
     public FirstBoxElement[] firstBoxElements;
 
 
@@ -51,19 +54,34 @@ public class GameController : MonoBehaviour
         Instance = this;
     }
     public static GameController Instance { get; private set; }
+
+    public void StartLevel()
+    {
+        isPush = true;
+    }
     private void Start()
     {
+
         numberOfMouthForRestart = numberOfMouth;
         timeDelayMovement = 3f;
         mouthUnlockID = numberOfMouth;
-        numberOfAllMouths = mouthElements.Length;
-        isPush = true;
+        mouthElements.Clear();
+        foreach(var x in rowElements)
+        {
+            mouthElements.Add(x.GetComponentInChildren<MouthElement>());
+        }
+        numberOfAllMouths = mouthElements.Count;
         UpToDateMouth();
     }
 
     private void Update()
     {
+        if (_mouthElements.Count == 0)
+        {
+            StartCoroutine(LoseDelay());
+        }
         UpToDateMouth();
+        numberOfMouthTxt.text = _mouthElements.Count.ToString();
         if(isReminder == false)
         {
             int l = 0;
@@ -74,6 +92,7 @@ public class GameController : MonoBehaviour
                     l++;
                 }
             }
+            Debug.Log(l + "huhuhuhuhuhuhuhu");
             if(l == firstBoxElements.Length)
             {
                 isReminder = true;
@@ -152,7 +171,7 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
         UIControllerGameplay.Instance.WinState();
-        if (levelID >= DataController.Instance.LoadValueLevelMaxIndex())
+        if (levelID - 1 >= DataController.Instance.LoadValueLevelMaxIndex())
         {
             DataController.Instance.SaveValue(levelID, levelID + 1);
         }
