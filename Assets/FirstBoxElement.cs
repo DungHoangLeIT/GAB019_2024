@@ -22,26 +22,26 @@ public class FirstBoxElement : MonoBehaviour
                 if(currentItemElement.itemID == mouthElements[i].mouthID)
                 {
                     currentItemElement.SetAnimation("Eat", true);
-                    currentItemElement.transform.DOMove(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform.position, 0.8f);
+                    currentItemElement.transform.DOMove(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform.position, 0.5f);
                     currentItemElement.transform.SetParent(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform);
                     GameController.Instance.numberCountCombo++;
+                    if(GameController.Instance.numberCountCombo >= 3)
+                    {
+                        GameController.Instance.comboCount = 0;
+                        GameController.Instance.numberCountCombo = 0;
+                    }
                     if(mouthElements[i].mouthEatting.itemElement.Length == 2)
                     {
                         isNotCheck = true;
                         StartCoroutine(CheckAgain());
                         mouthElements[i].mouthEatting.DiscountTarget();
-                        GameController.Instance.comboCount++;
                         GameController.Instance.numberCountCombo = 0;
+                        GameController.Instance.comboCount++;
                         if(GameController.Instance.comboCount == 5)
                         {
                             StartCoroutine(ResetCombo());
                             StartCoroutine(DelayMovement(mouthElements[i].transform));
                         }
-                    }
-                    if(GameController.Instance.numberCountCombo >= 3)
-                    {
-                        GameController.Instance.comboCount = 0;
-                        GameController.Instance.numberCountCombo = 0;
                     }
                     currentItemElement.transform.DOScale(0.8f, 0.5f);
                     foreach (BoxElement box in boxElements) box.MovingNext();

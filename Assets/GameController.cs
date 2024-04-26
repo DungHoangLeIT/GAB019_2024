@@ -76,6 +76,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        Debug.LogWarning(comboCount) ;
         if (_mouthElements.Count == 0)
         {
             StartCoroutine(LoseDelay());
