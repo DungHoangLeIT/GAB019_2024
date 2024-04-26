@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    public int levelID;
     public float timeDelayMovement;
     public MouthElement[] mouthElements;
     public MouthEatting[] mouthEattings;
@@ -55,7 +56,6 @@ public class GameController : MonoBehaviour
         numberOfMouthForRestart = numberOfMouth;
         timeDelayMovement = 3f;
         mouthUnlockID = numberOfMouth;
-        levelIndex = DataController.Instance.LoadValue();
         numberOfAllMouths = mouthElements.Length;
         isPush = true;
         UpToDateMouth();
@@ -152,6 +152,10 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
         UIControllerGameplay.Instance.WinState();
+        if (levelID >= DataController.Instance.LoadValueLevelMaxIndex())
+        {
+            DataController.Instance.SaveValue(levelID, levelID + 1);
+        }
     }
 
     IEnumerator ReminderDelay()
