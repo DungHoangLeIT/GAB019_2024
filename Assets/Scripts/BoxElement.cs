@@ -19,6 +19,7 @@ public class BoxElement : MonoBehaviour
     public void MovingNext()
     {
         targetPos = null;
+        currentItemElement = GetComponentInChildren<ItemElement>();
         for (int i = boxID; i >= 0; i--)
         {
             if (boxController.boxElements[i].GetComponentInChildren<ItemElement>() == null)
@@ -26,10 +27,9 @@ public class BoxElement : MonoBehaviour
                 targetPos = boxController.boxElements[i].transform;
             }
         }
-        if(boxID != 0)
+        if(boxID != 0 && targetPos != null && currentItemElement != null)
         {
 
-            currentItemElement = GetComponentInChildren<ItemElement>();
             currentItemElement.transform.DOMove(targetPos.position, 0.5f);
             currentItemElement.transform.SetParent(targetPos);
             StartCoroutine(MoveTime(currentItemElement));
@@ -37,7 +37,10 @@ public class BoxElement : MonoBehaviour
     }
     private void Update()
     {
-        MovingNext();
+        if (GameController.Instance.isInCombo == true)
+        {
+            MovingNext();
+        }
     }
 
     private IEnumerator MoveTime(ItemElement itemElement)

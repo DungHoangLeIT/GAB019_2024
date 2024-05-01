@@ -23,7 +23,10 @@ public class MouthElement : MonoBehaviour
         items = GetComponentsInChildren<Transform>();
         mouthEatting = GetComponentInChildren<MouthEatting>();
         mouthID = mouthEatting.mouthEatingID;
-        currentPos = GetComponentInParent<RowElement>().transform;
+        if (gameObject.active)
+        {
+            currentPos = GetComponentInParent<RowElement>().transform;
+        }
         if(items.Length >= 8)
         {
             for (int i = 2; i < items.Length; i++) Destroy(items[i].gameObject, GameController.Instance.timeDeleteElement);

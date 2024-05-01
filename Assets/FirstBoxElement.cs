@@ -24,12 +24,12 @@ public class FirstBoxElement : MonoBehaviour
                     currentItemElement.SetAnimation("Eat", true);
                     currentItemElement.transform.DOMove(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform.position, 0.5f);
                     currentItemElement.transform.SetParent(mouthElements[i].mouthEatting.mouthTargetPos[mouthElements[i].mouthEatting.itemElement.Length].transform);
-                    GameController.Instance.numberCountCombo++;
                     if(GameController.Instance.numberCountCombo >= 3)
                     {
                         GameController.Instance.comboCount = 0;
                         GameController.Instance.numberCountCombo = 0;
                     }
+                    GameController.Instance.numberCountCombo++;
                     if(mouthElements[i].mouthEatting.itemElement.Length == 2)
                     {
                         isNotCheck = true;
@@ -37,7 +37,7 @@ public class FirstBoxElement : MonoBehaviour
                         mouthElements[i].mouthEatting.DiscountTarget();
                         GameController.Instance.numberCountCombo = 0;
                         GameController.Instance.comboCount++;
-                        if(GameController.Instance.comboCount == 5)
+                        if(GameController.Instance.comboCount == 3)
                         {
                             StartCoroutine(ResetCombo());
                             StartCoroutine(DelayMovement(mouthElements[i].transform));
@@ -64,6 +64,7 @@ public class FirstBoxElement : MonoBehaviour
             }
         }
     }
+
     IEnumerator CheckAgain()
     {
         yield return new WaitForSeconds(4f);
@@ -71,7 +72,9 @@ public class FirstBoxElement : MonoBehaviour
     }
     IEnumerator ResetCombo()
     {
+        GameController.Instance.isInCombo = true;
         yield return new WaitForSeconds(4f);
+        GameController.Instance.isInCombo = false;
         GameController.Instance.comboCount = 0;
     }
 

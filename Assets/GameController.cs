@@ -76,7 +76,6 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        Debug.LogWarning(comboCount) ;
         if (_mouthElements.Count == 0)
         {
             StartCoroutine(LoseDelay());
@@ -93,7 +92,6 @@ public class GameController : MonoBehaviour
                     l++;
                 }
             }
-            Debug.Log(l + "huhuhuhuhuhuhuhu");
             if(l == firstBoxElements.Length)
             {
                 isReminder = true;
@@ -135,7 +133,7 @@ public class GameController : MonoBehaviour
             StartCoroutine(WinPopUpDelay());
         }
 
-        if (comboCount == 5)
+        if (comboCount == 3)
         {
             timeDelayMoveItems = 2f;
             timeDeleteElement = 1.3f;

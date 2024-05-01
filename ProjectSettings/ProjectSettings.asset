@@ -135,7 +135,10 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 1.0.2
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: b3d6b737c12c4354cb02663704880fc2, type: 2}
+  - {fileID: -7254652395879442537, guid: b40901e20c236044ca01cf33dac00935, type: 2}
+  - {fileID: 11400000, guid: 3aef8aa1c3fc2cc4586d23849ef622aa, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -892,11 +895,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: c1df9936-2984-43d9-8662-31293ea012c6
+  cloudProjectId: 2c09c7d7-6728-4043-88a0-47c7c5728cd4
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: GAB019 (1)
-  organizationId: dunglh_unity968
+  projectName: GAB019 (3)
+  organizationId: lehoangdungitptit
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
