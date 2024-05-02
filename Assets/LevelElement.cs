@@ -16,14 +16,13 @@ public class LevelElement : MonoBehaviour
     {
         currentLevelIndex = DataController.Instance.LoadValueLevelCurrentIndex();
         maxLevelIndex = DataController.Instance.LoadValueLevelMaxIndex();
-        Debug.Log(currentLevelIndex + " " + maxLevelIndex + " " + levelID);
-        if(levelID - 1 < maxLevelIndex)
+        if(levelID  < maxLevelIndex)
         {
             nextButton.SetActive(false);
             previousButton.SetActive(true);
             noneButton.SetActive(false);
         }
-        if(levelID - 1 == maxLevelIndex)
+        if(levelID  == maxLevelIndex)
         {
             nextButton.SetActive(true);
             previousButton.SetActive(false);
@@ -39,10 +38,10 @@ public class LevelElement : MonoBehaviour
 
     public void OnCLickPlay()
     {
-        if(maxLevelIndex <= levelID - 1)
+/*        if(maxLevelIndex <= levelID - 1)
         {
             maxLevelIndex = levelID - 1;
-        }
+        }*/
         DataController.Instance.SaveValue(levelID, maxLevelIndex);
         SceneManager.LoadScene("Gameplay");
     }

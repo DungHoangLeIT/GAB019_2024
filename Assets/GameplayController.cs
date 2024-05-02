@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameplayController : MonoBehaviour
 {
+    public AudioSource audioClip;
     public void Awake()
     {
         // Save a Reference to the component as our singleton instance
@@ -16,6 +17,8 @@ public class GameplayController : MonoBehaviour
     private void Start()
     {
         currentLevel = DataController.Instance.LoadValueLevelCurrentIndex();
+        Debug.LogWarning(currentLevel + "____");
         Instantiate(levelPrefabs[currentLevel - 1]);
+        AudioController.Instance.PlayGameplayMusic(audioClip.clip, true);
     }
 }

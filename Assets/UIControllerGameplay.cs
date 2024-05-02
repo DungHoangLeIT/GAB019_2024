@@ -16,12 +16,20 @@ public class UIControllerGameplay : MonoBehaviour
     [SerializeField] private GameObject winPopUp;
     [SerializeField] private GameObject popUp;
 
+    [SerializeField] private AudioSource menuBGMusic;
+    private bool soundplayed = false;
+
     public void WinState()
     {
         popUp.SetActive(true);
         reminderPopup.SetActive(false);
         losePop.SetActive(false);
         winPopUp.SetActive(true);
+        if (!soundplayed)
+        {
+            AudioController.Instance.PlayWinPopUp();
+            soundplayed = true;
+        }
     }
     public void LoseState()
     {
@@ -40,6 +48,7 @@ public class UIControllerGameplay : MonoBehaviour
 
     public void LoadToMainmenu()
     {
+        AudioController.Instance.PlayBGMenu(true);
         SceneManager.LoadScene("MenuScene");
     }
 
@@ -47,6 +56,16 @@ public class UIControllerGameplay : MonoBehaviour
     {
         ClaimRewardMouth.Instance.ClickAdReward();
         popUp.SetActive(false);
+    }
+
+    private IEnumerator DelayWinMusic()
+    {
+        if (!soundplayed)
+        {
+            AudioController.Instance.PlayWinPopUp();
+        }
+        yield return new WaitForSeconds(3f);
+        AudioController.Instance.PlayBGMenu(true);
     }
 
 }

@@ -18,7 +18,7 @@ public class DataController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) SaveValue(0, 1);
+        if (Input.GetKeyDown(KeyCode.Space)) SaveValue(1, 1);
     }
 
     public void ClearData()

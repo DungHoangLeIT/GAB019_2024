@@ -12,6 +12,7 @@ public class MouthElement : MonoBehaviour
     public Vector3 nextPos;
     public Transform currentPos;
     private float timeDelaytion;
+    private bool soundPlayed;
     private void Start()
     {
         nextPos = new Vector3(transform.position.x, transform.position.y - 2.25f, transform.position.z);
@@ -55,6 +56,11 @@ public class MouthElement : MonoBehaviour
         yield return new WaitForEndOfFrame();
         timeDelaytion = GameController.Instance.timeDelayMovement;
         yield return new WaitForSeconds(timeDelaytion);
+        if (!soundPlayed)
+        {
+            AudioController.Instance.PlayDisappearMouth();
+            soundPlayed = true;
+        }
         transform.DOMove(targetPos.position, 0.5f);
         transform.SetParent(targetPos);
         yield return new WaitForSeconds(0.5f);

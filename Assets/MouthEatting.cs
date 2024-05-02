@@ -21,16 +21,16 @@ public class MouthEatting : MonoBehaviour
         {
             mouthEatingID = itemElement[0].itemID;
         }
-        if(itemElement.Length >= 1 && itemElement.Length < 3 && GameController.Instance.comboCount != 3)
+        if(itemElement.Length >= 1 && itemElement.Length < 3 && GameController.Instance.comboCount != 5)
         {
             SetAnimation("Eat", true);
         }
-        if(GameController.Instance.comboCount == 3 && itemElement.Length >= 3)
+        if(GameController.Instance.comboCount == 5 && itemElement.Length >= 3)
         {
             for (int i = 0; i < 3; i++) Destroy(itemElement[i], 0.2f);
             StartCoroutine(DelayCap("Black_hole", true));
         }
-        if(itemElement.Length >= 3 && GameController.Instance.comboCount != 3)
+        if(itemElement.Length >= 3 && GameController.Instance.comboCount != 5)
         {
             StartCoroutine(DelayCap("Eat_done", false));
         }

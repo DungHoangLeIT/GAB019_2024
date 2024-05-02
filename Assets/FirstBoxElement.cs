@@ -8,11 +8,17 @@ public class FirstBoxElement : MonoBehaviour
     public List<BoxElement> boxElements;
     public ItemElement currentItemElement;
     private List<MouthElement> mouthElements;
+    private AudioHelper audioHelper;
     public int firstBoxID;
     private bool isNotCheck = false;
 
+    private void Start()
+    {
+        audioHelper = GetComponent<AudioHelper>();
+    }
     private void OnMouseDown()
     {
+        audioHelper.OnClick();
         if (GameController.Instance.isPush == true)
         {
             currentItemElement = GetComponentInChildren<ItemElement>();
@@ -37,7 +43,7 @@ public class FirstBoxElement : MonoBehaviour
                         mouthElements[i].mouthEatting.DiscountTarget();
                         GameController.Instance.numberCountCombo = 0;
                         GameController.Instance.comboCount++;
-                        if(GameController.Instance.comboCount == 3)
+                        if(GameController.Instance.comboCount == 5)
                         {
                             StartCoroutine(ResetCombo());
                             StartCoroutine(DelayMovement(mouthElements[i].transform));

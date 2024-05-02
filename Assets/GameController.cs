@@ -131,9 +131,10 @@ public class GameController : MonoBehaviour
         if(isWin == true)
         {
             StartCoroutine(WinPopUpDelay());
+            isWin = false;
         }
 
-        if (comboCount == 3)
+        if (comboCount == 5)
         {
             timeDelayMoveItems = 2f;
             timeDeleteElement = 1.3f;
@@ -170,7 +171,7 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
         UIControllerGameplay.Instance.WinState();
-        if (levelID - 1 >= DataController.Instance.LoadValueLevelMaxIndex())
+        if (levelID  >= DataController.Instance.LoadValueLevelMaxIndex())
         {
             DataController.Instance.SaveValue(levelID, levelID + 1);
         }

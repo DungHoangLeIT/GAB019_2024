@@ -1,0 +1,14 @@
+Combo.png
+size:580,204
+filter:Linear,Linear
+pma:true
+Eff/Combo/good
+bounds:2,2,318,100
+Eff/Combo/nice
+bounds:322,5,248,97
+Eff/Combo/perfect
+bounds:2,104,486,96
+Eff/Combo/star
+bounds:490,112,88,85
+offsets:1,1,89,87
+rotate:90
