@@ -8,6 +8,7 @@ public class MenuController : MonoBehaviour
 
     private void Start()
     {
+        AudioController.Instance.PlayBGMenu();
     }
 
 }

@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pixelplacement;
-[RequireComponent(typeof(Initialization))]
-public class AudioController : Singleton<AudioController>
+public class AudioController : MonoBehaviour
 {
+    public void Awake()
+    {
+        // Save a Reference to the component as our singleton instance
+        Instance = this;
+    }
+    public static AudioController Instance { get; private set; }
     private bool isSfxMute, isMusicMute;
     [SerializeField] private AudioSource sfxSource, musicSource, gameplayMusic;
     [SerializeField] private AudioSource winPopUp;
@@ -14,6 +19,7 @@ public class AudioController : Singleton<AudioController>
     {
         originVol = musicSource.volume;
     }
+
     public bool Music
     {
         set
@@ -41,13 +47,6 @@ public class AudioController : Singleton<AudioController>
         }
         get { return PlayerPrefs.GetInt("sfx_audio", 1) == 1; }
     }
-    protected override void OnRegistration()
-    {
-        isMusicMute = !Music;
-        isSfxMute = !SFX;
-        if (!isMusicMute)
-            musicSource.Play();
-    }
     public void PlaySfx(AudioClip clip)
     {
         if (!isSfxMute)
@@ -68,8 +67,11 @@ public class AudioController : Singleton<AudioController>
     {
         sfxSource.Stop();
     }
-
-    public void StopLongAudio()
+    public void StopMenuBGAudio()
+    {
+        musicSource.Stop();
+    }
+    public void StopGameplayAudio()
     {
         gameplayMusic.Stop();
     }
@@ -85,12 +87,16 @@ public class AudioController : Singleton<AudioController>
             musicSource.Play();
     }
 
-    public void PlayBGMenu(bool isLoop)
+    public void PlayBGMenu()
     {
-        musicSource.loop = isLoop;
         gameplayMusic.Stop();
-        if (!isMusicMute)
-            musicSource.Play();
+        musicSource.Play();
+    }
+
+    public void PlayBGGameplay()
+    {
+        musicSource.Stop();
+        gameplayMusic.Play();
     }
     public void PlayGameplayMusic(AudioClip clip, bool isLoop)
     {

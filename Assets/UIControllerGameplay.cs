@@ -48,7 +48,6 @@ public class UIControllerGameplay : MonoBehaviour
 
     public void LoadToMainmenu()
     {
-        AudioController.Instance.PlayBGMenu(true);
         SceneManager.LoadScene("MenuScene");
     }
 
@@ -58,14 +57,5 @@ public class UIControllerGameplay : MonoBehaviour
         popUp.SetActive(false);
     }
 
-    private IEnumerator DelayWinMusic()
-    {
-        if (!soundplayed)
-        {
-            AudioController.Instance.PlayWinPopUp();
-        }
-        yield return new WaitForSeconds(3f);
-        AudioController.Instance.PlayBGMenu(true);
-    }
 
 }

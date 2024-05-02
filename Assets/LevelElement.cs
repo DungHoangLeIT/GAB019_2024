@@ -43,6 +43,7 @@ public class LevelElement : MonoBehaviour
             maxLevelIndex = levelID - 1;
         }*/
         DataController.Instance.SaveValue(levelID, maxLevelIndex);
+        AudioController.Instance.PlayBGGameplay();
         SceneManager.LoadScene("Gameplay");
     }
 
